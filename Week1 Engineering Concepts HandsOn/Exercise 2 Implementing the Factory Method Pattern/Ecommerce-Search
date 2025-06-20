@@ -1,0 +1,83 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
+class Product {
+    int productId;
+    String productName;
+    String category;
+
+    public Product(int id, String name, String category) {
+        this.productId = id;
+        this.productName = name;
+        this.category = category;
+    }
+
+    public String toString() {
+        return productId + " - " + productName + " (" + category + ")";
+    }
+}
+
+public class ProductSearch {
+
+    public static Product linearSearch(Product[] products, String targetName) {
+        for (Product p : products) {
+            if (p.productName.equalsIgnoreCase(targetName)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public static Product binarySearch(Product[] products, String targetName) {
+        Arrays.sort(products, Comparator.comparing(p -> p.productName.toLowerCase()));
+        int left = 0, right = products.length - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            int cmp = products[mid].productName.compareToIgnoreCase(targetName);
+            if (cmp == 0) return products[mid];
+            else if (cmp < 0) left = mid + 1;
+            else right = mid - 1;
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Product[] products = {
+            new Product(101, "Laptop", "Electronics"),
+            new Product(102, "Chair", "Furniture"),
+            new Product(103, "Shoes", "Apparel"),
+            new Product(104, "Smartphone", "Electronics")
+        };
+
+        Product result1 = linearSearch(products, "Shoes");
+        System.out.println("Linear Search Result: " + result1);
+
+        Product result2 = binarySearch(products, "Smartphone");
+        System.out.println("Binary Search Result: " + result2);
+    }
+}
+
+
+Big-O notation expresses how an algorithm’s performance scales with input size. 
+It helps analyze time and space complexity, guiding developers to choose efficient solutions. 
+By comparing worst-case or average-case behaviors, Big-O allows you to predict scalability and optimize code effectively for large datasets or high-demand applications.
+
+
+
+Linear Search:
+- Best Case: O(1) — Target is at the first position.
+- Average Case: O(n/2) ≈ O(n) — Target is somewhere in the middle.
+- Worst Case: O(n) — Target is last or not found.
+
+Binary Search (on sorted data):
+- Best Case: O(1) — Target is at the middle index.
+- Average Case: O(log n) — Halves the search space each step.
+- Worst Case: O(log n) — Target is last found or absent after full division.
+
+
+So:
+- Small, unsorted list → linear search wins
+- Large, sorted or frequently searched list → go for binary
+
+
+

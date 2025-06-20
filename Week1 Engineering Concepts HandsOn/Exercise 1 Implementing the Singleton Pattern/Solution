@@ -1,0 +1,41 @@
+public class Loger{
+   private static Loger login;
+   private  Loger(){
+     System.out.println("Instance Created: ");
+   }
+
+   public static Loger getInstance(){
+    if(login==null){
+        login=new Loger();
+    }  
+    return login;
+   }
+   public static void log(String Message){
+    System.out.println("LogedIn: "+Message);
+   }
+
+}
+
+public class LogerTest {
+    public static void main(String[]args){
+     Loger l1=Loger.getInstance();
+     Loger l2=Loger.getInstance();
+     if(l1==l2){
+        System.out.println("Both Instances are Same: ");
+
+     }
+     l1.log("Intilized Compnonets: ");
+     l2.log("Database Connected: ");
+      
+
+
+    }
+}  
+
+
+
+
+
+
+
+
