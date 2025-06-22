@@ -1,19 +1,19 @@
 using System;
 
-public class Loger
+public class Logger
 {
-    private static Loger login;
+    private static Logger login;
 
-    private Loger()
+    private Logger()
     {
         Console.WriteLine("Instance Created:");
     }
 
-    public static Loger GetInstance()
+    public static Logger GetInstance()
     {
         if (login == null)
         {
-            login = new Loger();
+            login = new Logger();
         }
         return login;
     }
@@ -24,12 +24,12 @@ public class Loger
     }
 }
 
-public class LogerTest
+public class LoggerTest
 {
     public static void Main(string[] args)
     {
-        Loger l1 = Loger.GetInstance();
-        Loger l2 = Loger.GetInstance();
+        Logger l1 = Logger.GetInstance();
+        Logger l2 = Logger.GetInstance();
 
         if (l1 == l2)
         {
