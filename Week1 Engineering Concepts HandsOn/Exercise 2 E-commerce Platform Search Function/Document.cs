@@ -62,6 +62,7 @@ public class DocumentTesting
 {
     public static void Main(string[] args)
     {
+        // Using Factory Pattern to create documents without specifying their concrete classes
         DocumentFactory wordFactory = new WordDocumentFactory();
         IDocument wordDoc = wordFactory.CreateDocument();
         wordDoc.Open();
