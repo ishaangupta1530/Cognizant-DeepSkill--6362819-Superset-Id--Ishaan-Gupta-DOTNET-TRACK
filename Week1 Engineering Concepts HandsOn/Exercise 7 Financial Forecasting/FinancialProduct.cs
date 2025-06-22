@@ -18,3 +18,4 @@ class FinancialForecast
         Console.WriteLine($"Future Value after {periods} years: {result:F2}");
     }
 }
+// Result
