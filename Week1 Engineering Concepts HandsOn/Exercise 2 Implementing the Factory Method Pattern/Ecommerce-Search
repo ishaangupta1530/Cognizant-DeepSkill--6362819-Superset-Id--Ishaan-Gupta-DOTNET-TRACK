@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Comparator;
 
+ 
 class Product {
     int productId;
     String productName;
@@ -19,29 +20,37 @@ class Product {
 
 public class ProductSearch {
 
+    // Linear search: scans each element one by one
     public static Product linearSearch(Product[] products, String targetName) {
         for (Product p : products) {
             if (p.productName.equalsIgnoreCase(targetName)) {
-                return p;
+                return p; // Match found
             }
         }
-        return null;
+        return null; // Not found
     }
 
+    // Binary search: works on sorted data, reduces search space by half each time
     public static Product binarySearch(Product[] products, String targetName) {
+        // Sort array based on product name (case-insensitive)
         Arrays.sort(products, Comparator.comparing(p -> p.productName.toLowerCase()));
+
         int left = 0, right = products.length - 1;
+
         while (left <= right) {
             int mid = (left + right) / 2;
             int cmp = products[mid].productName.compareToIgnoreCase(targetName);
-            if (cmp == 0) return products[mid];
-            else if (cmp < 0) left = mid + 1;
-            else right = mid - 1;
+
+            if (cmp == 0) return products[mid]; // Target found
+            else if (cmp < 0) left = mid + 1;    // Search in right half
+            else right = mid - 1;               // Search in left half
         }
-        return null;
+
+        return null; // Target not found
     }
 
     public static void main(String[] args) {
+        // Sample product data
         Product[] products = {
             new Product(101, "Laptop", "Electronics"),
             new Product(102, "Chair", "Furniture"),
@@ -49,35 +58,12 @@ public class ProductSearch {
             new Product(104, "Smartphone", "Electronics")
         };
 
+        // Perform linear search for "Shoes"
         Product result1 = linearSearch(products, "Shoes");
         System.out.println("Linear Search Result: " + result1);
 
+        // Perform binary search for "Smartphone"
         Product result2 = binarySearch(products, "Smartphone");
         System.out.println("Binary Search Result: " + result2);
     }
 }
-
-
-Big-O notation expresses how an algorithm’s performance scales with input size. 
-It helps analyze time and space complexity, guiding developers to choose efficient solutions. 
-By comparing worst-case or average-case behaviors, Big-O allows you to predict scalability and optimize code effectively for large datasets or high-demand applications.
-
-
-
-Linear Search:
-- Best Case: O(1) — Target is at the first position.
-- Average Case: O(n/2) ≈ O(n) — Target is somewhere in the middle.
-- Worst Case: O(n) — Target is last or not found.
-
-Binary Search (on sorted data):
-- Best Case: O(1) — Target is at the middle index.
-- Average Case: O(log n) — Halves the search space each step.
-- Worst Case: O(log n) — Target is last found or absent after full division.
-
-
-So:
-- Small, unsorted list → linear search wins
-- Large, sorted or frequently searched list → go for binary
-
-
-
